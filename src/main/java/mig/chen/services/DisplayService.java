@@ -192,15 +192,15 @@ public class DisplayService {
      * @param String 问题,支持模糊匹配
      **/
     @Transactional(readOnly = true)
-    public Map<String, Map<String, Object>> anwserMap(String question) {
+    public List<Map<String, Object>> anwserMap(String question) {
     		List<String> results = PinYinUtil.getSegments(question);
-    		System.out.println(results);
-    		Map<String, Map<String, Object>> resultMap = new HashMap<>();
-    		int count = 0;
+    		//System.out.println(results);
+    		List<Map<String, Object>> resultMap = new ArrayList<>();
     		for (String result : results) {
     			Map<String, Object> tempMap = search(result);
-    			resultMap.put("Map"+count, tempMap);
-    			count++;
+    			if (resultMap.indexOf(tempMap)== -1) {
+    				resultMap.add(tempMap);
+				}
 			}
         	return resultMap ;
     }
@@ -210,16 +210,16 @@ public class DisplayService {
      * @param String 问题,支持模糊匹配
      **/
     @Transactional(readOnly = true)
-    public Map<String, List<Map<String, Object>>> anwserList(String question) {
+    public List<List<Map<String, Object>>> anwserList(String question) {
     		List<String> results = PinYinUtil.getSegments(question); //cql.findGraph(".*"+name+".*");
-    		Map<String, List<Map<String, Object>>> resultMap = new HashMap<>();
-    		int count = 0;
+    		List<List<Map<String, Object>>> resultList = new ArrayList<>();
     		for (String result : results) {
     			List<Map<String, Object>> tempList = list(result);
-    			resultMap.put("List"+count, tempList);
-    			count++;
+    			if (resultList.indexOf(tempList)== -1) {
+        			resultList.add(tempList);
+				}
 			}
-        	return resultMap ;
+        	return resultList ;
     }
 
 /*    

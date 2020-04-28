@@ -40,8 +40,8 @@ public class WebController {
 	
 	@GetMapping("/ask")
 	public String test(@RequestParam(value = "question",required = false) String question,Model m) {
-		Map<String, Map<String, Object>> map = ds.anwserMap(question);
-		Map<String, List<Map<String, Object>>> list = ds.anwserList(question);
+		List<Map<String, Object>> map = ds.anwserMap(question);
+		List<List<Map<String, Object>>> list = ds.anwserList(question);
 		Map<String, Object> result = new HashMap<>();
 		result.put("map", map);
 		result.put("list", list);
