@@ -99,8 +99,8 @@ public class DisplayService {
     	try {
     		List<Environment> upperLevel = cql.findUpperLevel(name);
     		List<Environment> lowerLevel = cql.findLowerLevel(name);
-     		List<String> upperList=EchartsUtil.toLevelList(upperLevel);
-     		List<String> lowerList=EchartsUtil.toLevelList(lowerLevel);
+     		List<String> upperList = EchartsUtil.toLevelList(upperLevel);
+     		List<String> lowerList = EchartsUtil.toLevelList(lowerLevel);
      		Map<String, List<String>> map = new HashMap<>();
      		map.put("UpperLevel", upperList);
      		map.put("LowerLevel", lowerList);
@@ -211,7 +211,7 @@ public class DisplayService {
      **/
     @Transactional(readOnly = true)
     public List<List<Map<String, Object>>> anwserList(String question) {
-    		List<String> results = PinYinUtil.getSegments(question); //cql.findGraph(".*"+name+".*");
+    		List<String> results = PinYinUtil.getSegments(question); 
     		List<List<Map<String, Object>>> resultList = new ArrayList<>();
     		for (String result : results) {
     			List<Map<String, Object>> tempList = list(result);
