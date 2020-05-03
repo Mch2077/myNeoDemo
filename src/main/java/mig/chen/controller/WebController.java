@@ -30,8 +30,8 @@ public class WebController {
 
 	@GetMapping("/search")
 	public String search(@RequestParam(value = "name",required = false) String name,Model m) {
-		Map<String, Object> map=ds.search(name);
-		List<Map<String, Object>> list=ds.list(name);
+		Map<String, Object> map=ds.searchMap(name);
+		List<Map<String, Object>> list=ds.searchList(name);
 		Map<String, Object> result = new HashMap<>();
 		result.put("map", map);
 		result.put("list", list);
@@ -39,9 +39,9 @@ public class WebController {
 	}
 	
 	@GetMapping("/ask")
-	public String test(@RequestParam(value = "question",required = false) String question,Model m) {
-		List<Map<String, Object>> map = ds.anwserMap(question);
-		List<List<Map<String, Object>>> list = ds.anwserList(question);
+	public String test(@RequestParam(value = "question",required = false) String question,Model m) throws Exception {
+		Map<String, Object> map = ds.answerMap(question);
+		List<Map<String, Object>> list = ds.answerList(question);
 		Map<String, Object> result = new HashMap<>();
 		result.put("map", map);
 		result.put("list", list);
@@ -53,7 +53,7 @@ public class WebController {
 			@RequestParam(value = "relationship") String relationship,
 			@RequestParam(value = "endNode",required = false) String endNode, 
 			Model m) throws SQLException {
-		Map<String, Object> map=ds.findRel(startNode, relationship, endNode);
+		Map<String, Object> map=ds.relMap(startNode, relationship, endNode);
 		List<Map<String, Object>> list=ds.relList(startNode, relationship, endNode);
 		Map<String, Object> result = new HashMap<>();
 		result.put("map", map);

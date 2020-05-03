@@ -5,6 +5,7 @@ import java.util.*;
 
 import mig.chen.domain.Environment;
 import mig.chen.repositories.CqlRepository;
+import mig.chen.util.BayesUtil;
 import mig.chen.util.ConfigNeo4jDBUtil;
 import mig.chen.util.EchartsUtil;
 import mig.chen.util.PinYinUtil;
@@ -35,7 +36,7 @@ public class DisplayService {
      * @param String 节点名,支持模糊匹配
      **/
 	@Transactional(readOnly = true)
-	public List<Map<String, Object>> list(String name) {
+	public List<Map<String, Object>> searchList(String name) {
     		Collection<Environment> result = cql.findGraph(".*"+name+".*");
      		List<Map<String, Object>> list=EchartsUtil.toListFormat(result);
         	return list;
@@ -47,7 +48,7 @@ public class DisplayService {
      * @param String 节点名,支持模糊匹配
      **/
     @Transactional(readOnly = true)
-    public Map<String, Object> search(String name) {
+    public Map<String, Object> searchMap(String name) {
     		Collection<Environment> result = cql.findGraph(".*"+name+".*");
      		Map<String, Object> map=EchartsUtil.toEchartsFormat(result);
         	return map ;
@@ -118,7 +119,7 @@ public class DisplayService {
      * @throws SQLException 
      **/
     @Transactional(readOnly = true)
-	public Map<String, Object> findRel(String startNode, String relationship, String endNode) throws SQLException {
+	public Map<String, Object> relMap(String startNode, String relationship, String endNode) throws SQLException {
     	Collection<Environment> result;
 		if (relationship.equals("null")) {
 			if (startNode.equals("null")) {
@@ -190,38 +191,47 @@ public class DisplayService {
      * 根据问题查询返回可视化图像数据
      * @author Ethan Chain 陈科军
      * @param String 问题,支持模糊匹配
+	 * @throws Exception 
      **/
     @Transactional(readOnly = true)
-    public List<Map<String, Object>> anwserMap(String question) {
-    		List<String> results = PinYinUtil.getSegments(question);
-    		//System.out.println(results);
-    		List<Map<String, Object>> resultMap = new ArrayList<>();
-    		for (String result : results) {
-    			Map<String, Object> tempMap = search(result);
-    			if (resultMap.indexOf(tempMap)== -1) {
-    				resultMap.add(tempMap);
-				}
-			}
-        	return resultMap ;
-    }
-    /**
-     * 根据问题查询返回列表数据
-     * @author Ethan Chain 陈科军
-     * @param String 问题,支持模糊匹配
-     **/
-    @Transactional(readOnly = true)
-    public List<List<Map<String, Object>>> anwserList(String question) {
-    		List<String> results = PinYinUtil.getSegments(question); 
-    		List<List<Map<String, Object>>> resultList = new ArrayList<>();
-    		for (String result : results) {
-    			List<Map<String, Object>> tempList = list(result);
-    			if (resultList.indexOf(tempList)== -1) {
-        			resultList.add(tempList);
-				}
-			}
-        	return resultList ;
-    }
+    public Map<String, Object> answerMap(String question) throws Exception {
+    	PinYinUtil.addCustomDictionary();
+    	ArrayList<String> standardList = BayesUtil.toFormatQuestion(question);
+		Map<String, Object> result = new HashMap<>();
+    	switch (standardList.get(0)) {
+		case "0":
+			result = searchMap(".*"+standardList.get(3)+".*");
+			break;
 
+		default:
+			result = searchMap(".*瀑布沟水电站.*");
+			break;
+		}
+        return result;
+    }
+    
+    /**
+     * 智能问答匹配查询
+     * @author Ethan Chain 陈科军
+     * @param String 问题
+     * @throws Exception 
+     **/
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> answerList(String question) throws Exception {
+    	PinYinUtil.addCustomDictionary();
+    	ArrayList<String> standardList = BayesUtil.toFormatQuestion(question);
+		List<Map<String, Object>> result = new ArrayList<>();
+    	switch (standardList.get(0)) {
+		case "0":
+			result = searchList(".*"+standardList.get(3)+".*");
+			break;
+
+		default:
+			result = searchList(".*瀑布沟水电站.*");
+			break;
+		}
+        return result;
+    }
 /*    
     @Transactional(readOnly = true)
     public String saveEntity(String name) {

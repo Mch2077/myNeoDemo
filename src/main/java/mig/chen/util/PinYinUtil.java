@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.dictionary.CustomDictionary;
 import com.hankcs.hanlp.seg.common.Term;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -136,6 +137,16 @@ public class PinYinUtil {
 		}
 		return results;
 	}
+    
+	public static void addCustomDictionary() {
+		CustomDictionary.add("瀑布沟水电站", "nm");
+		CustomDictionary.add("水质监测因子", "nd");
+		CustomDictionary.add("陆生植物物种组成", "nd");
+		//CustomDictionary.add("生态保护目标", "nd");
+		//CustomDictionary.add("瀑布沟水电站", "nd");
+
+	}
+	
 }
 
 
