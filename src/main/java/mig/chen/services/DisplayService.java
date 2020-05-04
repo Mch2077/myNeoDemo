@@ -200,11 +200,11 @@ public class DisplayService {
 		Map<String, Object> result = new HashMap<>();
     	switch (standardList.get(0)) {
 		case "0":
-			result = searchMap(".*"+standardList.get(3)+".*");
+			result = searchMap(standardList.get(3));
 			break;
 
 		default:
-			result = searchMap(".*瀑布沟水电站.*");
+			result = searchMap("瀑布沟水电站");
 			break;
 		}
         return result;
@@ -217,20 +217,23 @@ public class DisplayService {
      * @throws Exception 
      **/
     @Transactional(readOnly = true)
-    public List<Map<String, Object>> answerList(String question) throws Exception {
+    public List<String> answerList(String question) throws Exception {
     	PinYinUtil.addCustomDictionary();
     	ArrayList<String> standardList = BayesUtil.toFormatQuestion(question);
-		List<Map<String, Object>> result = new ArrayList<>();
+		Collection<Environment> result = new ArrayList<>();
+		List<String> list = new ArrayList<>();
     	switch (standardList.get(0)) {
 		case "0":
-			result = searchList(".*"+standardList.get(3)+".*");
+			result = cql.findGraph(".*"+standardList.get(3)+".*");
+			list = EchartsUtil.toAnswerListFormat(result);
 			break;
 
 		default:
-			result = searchList(".*瀑布沟水电站.*");
+			result = cql.findGraph(".*瀑布沟水电站.*");
+			list = EchartsUtil.toAnswerListFormat(result);
 			break;
 		}
-        return result;
+        return list;
     }
 /*    
     @Transactional(readOnly = true)

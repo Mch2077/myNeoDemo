@@ -614,6 +614,111 @@ public class EchartsUtil {
 		return list;
 	}
 	
+	public static List<String> toAnswerListFormat(Collection<Environment> evs) {
+		List<Map<String, Object>> nodes = new ArrayList<>();
+		List<Map<String, Object>> rels = new ArrayList<>();
+		List<String> answerList = new ArrayList<>();
+		Iterator<Environment> result = evs.iterator();
+		while (result.hasNext()) {
+			Environment ev = result.next();
+			Map<String, Object> EVOmap=mapNodes("name", ev.getName());
+			if (nodes.indexOf(EVOmap)== -1) {
+				nodes.add(EVOmap);
+			}
+			int source = nodes.indexOf(EVOmap);
+			
+			if(ev.getContainer()!=null) {
+				for (Contain container : ev.getContainer()) {
+					Map<String, Object> eviMap = mapNodes("name", container.getEVI().getName());
+					int target = nodes.indexOf(eviMap);
+					if (target == -1) {
+						nodes.add(eviMap);
+						target = nodes.indexOf(eviMap);
+					}
+					rels.add(mapLinks("source", source, "target", target,"name",container.getName()));
+				}
+			}
+			
+			if(ev.getPropertiesList()!=null) {
+				for (Is is : ev.getPropertiesList()) {
+					Map<String, Object> propertyMap = mapNodes("name", is.getProperty().getValue());
+					int target = nodes.indexOf(propertyMap);
+					if (target == -1) {
+						nodes.add(propertyMap);
+						target = nodes.indexOf(propertyMap);
+					}
+					rels.add(mapLinks("source", source, "target", target,"name",is.getName()));
+				}
+			}
+			
+			if(ev.getWpcList()!=null) {
+				for (WeakPositiveCorrelation wpc : ev.getWpcList()) {
+					Map<String, Object> propertyMap = mapNodes("name", wpc.getEVI().getName());
+					int target = nodes.indexOf(propertyMap);
+					if (target == -1) {
+						nodes.add(propertyMap);
+						target = nodes.indexOf(propertyMap);
+					}
+					rels.add(mapLinks("source", source, "target", target,"name",wpc.getName()));
+				}
+			}
+			
+			if(ev.getSpcList()!=null) {
+				for (StrongPositiveCorrelation spc : ev.getSpcList()) {
+					Map<String, Object> propertyMap = mapNodes("name", spc.getEVI().getName());
+					int target = nodes.indexOf(propertyMap);
+					if (target == -1) {
+						nodes.add(propertyMap);
+						target = nodes.indexOf(propertyMap);
+					}
+					rels.add(mapLinks("source", source, "target", target,"name",spc.getName()));
+				}
+			}
+			
+			if(ev.getWncList()!=null) {
+				for (WeakNegativeCorrelation wnc : ev.getWncList()) {
+					Map<String, Object> propertyMap = mapNodes("name", wnc.getEVI().getName());
+					int target = nodes.indexOf(propertyMap);
+					if (target == -1) {
+						nodes.add(propertyMap);
+						target = nodes.indexOf(propertyMap);
+					}
+					rels.add(mapLinks("source", source, "target", target,"name",wnc.getName()));
+				}
+			}
+			
+			if(ev.getSncList()!=null) {
+				for (StrongNegativeCorrelation snc : ev.getSncList()) {
+					Map<String, Object> propertyMap = mapNodes("name", snc.getEVI().getName());
+					int target = nodes.indexOf(propertyMap);
+					if (target == -1) {
+						nodes.add(propertyMap);
+						target = nodes.indexOf(propertyMap);
+					}
+					rels.add(mapLinks("source", source, "target", target,"name",snc.getName()));
+				}
+			}
+			
+			if(ev.getLocationList()!=null) {
+				for (At at : ev.getLocationList()) {
+					Map<String, Object> propertyMap = mapNodes("name", at.getLocation().getName());
+					int target = nodes.indexOf(propertyMap);
+					if (target == -1) {
+						nodes.add(propertyMap);
+						target = nodes.indexOf(propertyMap);
+					}
+					rels.add(mapLinks("source", source, "target", target,"name",at.getName()));
+				}
+			}
+		}
+		for (Map<String, Object> map : rels) {
+			int target=(int)map.get("target");
+			if (answerList.indexOf((String) nodes.get(target).get("name")) == -1) {
+				answerList.add((String) nodes.get(target).get("name"));
+			}
+		}
+		return answerList;
+	}
 /*
      * 实现java 中 list集合中6条为一组取出
      * @param list 可穿入数据的List
