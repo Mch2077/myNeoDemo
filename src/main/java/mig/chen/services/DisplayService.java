@@ -11,6 +11,7 @@ import mig.chen.util.EchartsUtil;
 import mig.chen.util.PinYinUtil;
 import mig.chen.util.TreeUtil;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import shapeless.newtype;
 
 import org.neo4j.driver.Record;
 import org.slf4j.Logger;
@@ -211,26 +212,29 @@ public class DisplayService {
     }
     
     /**
-     * 智能问答匹配查询
+     * 根据问题查询返回答案列表
      * @author Ethan Chain 陈科军
      * @param String 问题
      * @throws Exception 
      **/
     @Transactional(readOnly = true)
-    public List<Map<String, Object>> answerList(String question) throws Exception {
+    public List<String> answerList(String question) throws Exception {
     	PinYinUtil.addCustomDictionary();
     	ArrayList<String> standardList = BayesUtil.toFormatQuestion(question);
-		List<Map<String, Object>> result = new ArrayList<>();
+		Collection<Environment> result = new ArrayList<>();
+		List<String> list = new ArrayList<>();
     	switch (standardList.get(0)) {
 		case "0":
-			result = searchList(".*"+standardList.get(3)+".*");
+			result = cql.findGraph(".*"+standardList.get(3)+".*");
+			list = EchartsUtil.toAnswerListFormat(result);
 			break;
 
 		default:
-			result = searchList(".*瀑布沟水电站.*");
+			result = cql.findGraph(".*瀑布沟水电站.*");
+			list = EchartsUtil.toAnswerListFormat(result);
 			break;
 		}
-        return result;
+        return list;
     }
 /*    
     @Transactional(readOnly = true)

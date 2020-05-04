@@ -41,7 +41,7 @@ public class WebController {
 	@GetMapping("/ask")
 	public String test(@RequestParam(value = "question",required = false) String question,Model m) throws Exception {
 		Map<String, Object> map = ds.answerMap(question);
-		List<Map<String, Object>> list = ds.answerList(question);
+		List<String> list = ds.answerList(question);
 		Map<String, Object> result = new HashMap<>();
 		result.put("map", map);
 		result.put("list", list);
