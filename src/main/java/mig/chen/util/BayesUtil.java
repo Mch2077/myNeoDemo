@@ -397,9 +397,9 @@ public class BayesUtil {
 		return mp.analyQuery(question);
 	}
 	
-//	public static void main(String[] args) throws Exception {
-//		BayesUtil mp = new BayesUtil();
-//		PinYinUtil.addCustomDictionary();
-//		mp.analyQuery("水电站包含哪些水质监测因子");
-//	}
+	public static void main(String[] args) throws Exception {
+		BayesUtil mp = new BayesUtil();
+		PinYinUtil.addCustomDictionary();
+		mp.analyQuery("水电站包含哪些水质监测因子");
+	}
 }
