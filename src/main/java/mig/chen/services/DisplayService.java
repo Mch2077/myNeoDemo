@@ -201,7 +201,7 @@ public class DisplayService {
 		Map<String, Object> result = new HashMap<>();
     	switch (standardList.get(0)) {
 		case "0":
-			result = searchMap(".*"+standardList.get(3)+".*");
+			result = searchMap(".*"+standardList.get(1)+".*");
 			break;
 
 		default:
@@ -225,7 +225,7 @@ public class DisplayService {
 		List<String> list = new ArrayList<>();
     	switch (standardList.get(0)) {
 		case "0":
-			result = cql.findGraph(".*"+standardList.get(3)+".*");
+			result = cql.findGraph(".*"+standardList.get(1)+".*");
 			list = EchartsUtil.toAnswerListFormat(result);
 			break;
 

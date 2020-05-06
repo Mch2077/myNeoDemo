@@ -56,7 +56,7 @@ public class BayesUtil {
 	/**
 	 * 指定问题question及字典的txt模板所在的根目录
 	 */
-    String rootDirPath = "/home/mig-chen/下载/neo4j/data/";
+    String rootDirPath = "/root/文档/data/";
     
     /**
      * 分类模板索引
@@ -298,18 +298,6 @@ public class BayesUtil {
 				LabeledPoint train_one = new LabeledPoint(0.0, Vectors.dense(array));
 				train_list.add(train_one);
 			}
-
-			/**
-			 * 英雄什么时候上映的
-			 */
-			String timeQuestions = loadFile("question/【1】上映.txt");
-			sentences = timeQuestions.split("`");
-			for (String sentence : sentences) {
-				double[] array = sentenceToArrays(sentence);
-				LabeledPoint train_one = new LabeledPoint(1.0, Vectors.dense(array));
-				train_list.add(train_one);
-			}
-
 
 			
 			/**

@@ -140,10 +140,17 @@ public class PinYinUtil {
     
 	public static void addCustomDictionary() {
 		CustomDictionary.add("瀑布沟水电站", "nm");
+		CustomDictionary.add("瀑布沟", "nm");
+		CustomDictionary.add("水电站", "nm");
+
 		CustomDictionary.add("水质监测因子", "nd");
-		CustomDictionary.add("陆生植物物种组成", "nd");
-		//CustomDictionary.add("生态保护目标", "nd");
-		//CustomDictionary.add("瀑布沟水电站", "nd");
+		CustomDictionary.add("植物物种组成", "nd");
+		CustomDictionary.add("生态保护目标", "nd");
+		CustomDictionary.add("鱼类保护措施", "nd");
+		CustomDictionary.add("动物", "nd");
+		CustomDictionary.add("植物", "nd");
+		CustomDictionary.add("鱼类", "nd");
+		CustomDictionary.add("社会环境", "nd");
 
 	}
 	
