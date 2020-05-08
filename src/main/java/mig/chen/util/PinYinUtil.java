@@ -151,6 +151,8 @@ public class PinYinUtil {
 		CustomDictionary.add("植物", "nd");
 		CustomDictionary.add("鱼类", "nd");
 		CustomDictionary.add("社会环境", "nd");
+		CustomDictionary.add("坝址年均水温", "nd");
+		CustomDictionary.add("水温", "nd");
 
 	}
 	

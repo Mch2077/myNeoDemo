@@ -20,6 +20,8 @@ import org.apache.spark.mllib.classification.NaiveBayesModel;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
+import org.apache.spark.streaming.Durations;
+import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.Segment;
@@ -277,6 +279,7 @@ public class BayesUtil {
 		
 			SparkConf conf = new SparkConf().setAppName("NaiveBayesTest").setMaster("local[*]");
 			JavaSparkContext sc = new JavaSparkContext(conf);
+			//JavaStreamingContext sc = new JavaStreamingContext(conf, Durations.seconds(10));
 
 			/**
 			 * 训练集生成
