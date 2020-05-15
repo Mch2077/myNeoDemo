@@ -62,7 +62,7 @@ public class DisplayService {
     @Transactional(readOnly = true)
     public String tree() {
     	try {
-    		Collection<Environment> result = cql.findGraph("瀑布沟流域水电站环境");
+    		Collection<Environment> result = cql.findGraph("某流域水电站环境");
      		Map<String, Object> map = new HashMap<String, Object>();
     		map.put("treeData", TreeUtil.bulid(TreeUtil.bulidList(result), 0));
     		return JSON.toJSONString(map);
@@ -205,7 +205,7 @@ public class DisplayService {
 			break;
 
 		default:
-			result = searchMap(".*瀑布沟水电站.*");
+			result = searchMap(".*某流域水电站.*");
 			break;
 		}
         return result;
@@ -230,7 +230,7 @@ public class DisplayService {
 			break;
 
 		default:
-			result = cql.findGraph(".*瀑布沟水电站.*");
+			result = cql.findGraph(".*某流域水电站.*");
 			list = EchartsUtil.toAnswerListFormat(result);
 			break;
 		}

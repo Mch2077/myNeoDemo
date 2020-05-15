@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mig.chen</groupId>
   <artifactId>myNeoDemo</artifactId>
-  <version>0.1.1</version>
+  <version>0.0.1</version>
   <name>myNeoDemo</name>
-  <description>One Step of Me</description>
+  <description>Competition Edition</description>
   <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>

@@ -20,8 +20,6 @@ import org.apache.spark.mllib.classification.NaiveBayesModel;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
-import org.apache.spark.streaming.Durations;
-import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.Segment;
@@ -58,7 +56,7 @@ public class BayesUtil {
 	/**
 	 * 指定问题question及字典的txt模板所在的根目录
 	 */
-    String rootDirPath = "/root/文档/data/";
+    String rootDirPath = "/home/mig-chen/文档/data_comp/";
     
     /**
      * 分类模板索引

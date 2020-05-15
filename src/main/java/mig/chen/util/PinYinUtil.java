@@ -139,8 +139,8 @@ public class PinYinUtil {
 	}
     
 	public static void addCustomDictionary() {
-		CustomDictionary.add("瀑布沟水电站", "nm");
-		CustomDictionary.add("瀑布沟", "nm");
+		CustomDictionary.add("某流域水电站", "nm");
+		CustomDictionary.add("某流域", "nm");
 		CustomDictionary.add("水电站", "nm");
 
 		CustomDictionary.add("水质监测因子", "nd");
